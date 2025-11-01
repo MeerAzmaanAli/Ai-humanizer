@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@huggingface/inference": "^4.13.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "groq-sdk": "^0.34.0"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+}
