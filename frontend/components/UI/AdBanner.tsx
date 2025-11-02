@@ -1,8 +1,18 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function AdBanner() {
   const insRef = useRef<HTMLModElement>(null)
   const didInit = useRef(false)
+  const [adHeight, setAdHeight] = useState<number>(60)
+  useEffect(() => {
+    const updateHeight = () => {
+      const w = typeof window !== 'undefined' ? window.innerWidth : 1024
+      setAdHeight(w < 640 ? 50 : 60)
+    }
+    updateHeight()
+    window.addEventListener('resize', updateHeight)
+    return () => window.removeEventListener('resize', updateHeight)
+  }, [])
   useEffect(() => {
     const el = insRef.current as any
     if (!el) return
@@ -25,12 +35,12 @@ export default function AdBanner() {
   if (!process.env.NEXT_PUBLIC_ADSENSE_CLIENT) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 border-t bg-white/90 dark:bg-gray-900/90 backdrop-blur">
-      <div className="mx-auto max-w-6xl px-2 py-1 flex items-center justify-center" style={{ minHeight: 50 }}>
+    <div className="fixed bottom-0 left-0 right-0 z-30 border-t bg-white/90 dark:bg-gray-900/90 backdrop-blur overflow-hidden">
+      <div className="mx-auto max-w-6xl px-2 py-1 flex items-center justify-center" style={{ minHeight: adHeight }}>
         <ins
           ref={insRef as any}
           className="adsbygoogle"
-          style={{ display: 'inline-block', width: '100%', height: 60, maxHeight: 60 }}
+          style={{ display: 'inline-block', width: '100%', height: adHeight, maxHeight: adHeight }}
           data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT}
           data-ad-slot="3518902208"
           data-ad-format="horizontal"

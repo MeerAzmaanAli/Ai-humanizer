@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex flex-col">
       <SEO />
       <Header />
-      <main className="flex-1 container py-8">{children}</main>
+      <main className="flex-1 container py-8 pb-20 sm:pb-24">{children}</main>
       <Footer />
     </div>
   )
